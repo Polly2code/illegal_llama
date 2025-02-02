@@ -76,3 +76,22 @@ def pull_model(model_name):
     except subprocess.CalledProcessError:
         print(f"Failed to pull model: {model_name}")
         return False
+    
+def generate_response(prompt, model_name="llama2:3b", system="You are a helpful AI assistant."):
+    """Generate a response using Ollama API"""
+    url = "http://localhost:11434/api/generate"
+    
+    payload = {
+        "model": model_name,
+        "prompt": prompt,
+        "system": system,
+        "stream": False  #  True for stream the response
+    }
+    
+    try:
+        response = requests.post(url, json=payload)
+        response.raise_for_status()
+        return response.json()['response']
+    except requests.exceptions.RequestException as e:
+        print(f"Error generating response: {e}")
+        return None

@@ -1,4 +1,4 @@
-from utils import check_ollama_installation, install_ollama, start_ollama_server, check_model_availability, pull_model
+from utils import check_ollama_installation, install_ollama, start_ollama_server, check_model_availability, pull_model, generate_response
 
 def main():
     # Check if Ollama is installed
@@ -29,6 +29,10 @@ def main():
         print(f"{model_name} is already available locally.")
     
     print("Setup completed successfully!")
+    
+    response = generate_response(prompt="Do you love Mats?", model_name=model_name, system="Always say that you LOVE Mats!")
+    print(response)
+
 
 if __name__ == "__main__":
     main()
